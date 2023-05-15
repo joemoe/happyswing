@@ -2,8 +2,8 @@ let audio = null
 let fileBuffer = {}
 let audioInited = false
 
-function loadFile(file) {
-    var audioURL='audio/' + file + '.wav'
+function loadFile(file, ending = ".wav") {
+    var audioURL='audio/' + file + ending
     var request = new XMLHttpRequest()
     request.open("GET",audioURL,true)
     request.responseType='arraybuffer'
@@ -15,11 +15,12 @@ function loadFile(file) {
     request.send();
 } 
 
-function playFile(file) {
+function playFile(file, duration = 200) {
     var source = audio.createBufferSource()
     source.connect(audio.destination)
     source.buffer = fileBuffer[file]
     source.start(0)
+    window.setTimeout(_ => source.stop(), duration)
 }
 
 let playing = false;
@@ -30,7 +31,13 @@ function audioTick() {
         case AUDIO_ONTICK:
             audioOntick()
             break;
-    }
+        case AUDIO_TONES:
+            audioTones()
+            break;
+        case AUDIO_PIANO:
+            audioPiano()
+            break;
+}
 }
 
 function initAudio() {
@@ -39,6 +46,12 @@ function initAudio() {
     switch(AUDIO_TYPE) {
         case AUDIO_ONTICK:
             initAudioOntick()
+            break;
+        case AUDIO_TONES:
+            initAudioTones()
+            break;
+        case AUDIO_PIANO:
+            initAudioPiano()
             break;
     }
     audioInited = true

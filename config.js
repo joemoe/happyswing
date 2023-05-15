@@ -1,14 +1,16 @@
-const MAX_SWING_POWER = 30
+const MAX_SWING_POWER = 20
 const MAX_SWING_DURATION = 2000
 
-const MQTT_URL = "ws://172.20.10.4:8083/mqtt"
+const MQTT_URL = "ws://10.0.1.2:8083/mqtt"
 const MQTT_TOPIC = "s"
 
 const AUDIO_ONTICK = "AUDIO_ONTICK"
 const AUDIO_FIXED_SAMPLED = "AUDIO_FIXED_SAMPLED"
 const AUDIO_FIXED_MOONSHINE = "AUDIO_FIXED_MOONSHINE"
+const AUDIO_TONES = "AUDIO_TONES"
+const AUDIO_PIANO = "AUDIO_PIANO"
 
-const AUDIO_TYPE = AUDIO_ONTICK
+const AUDIO_TYPE = AUDIO_PIANO  
 
 // Generator types
 const GENERATOR_SAMPLE = "GENERATOR_SAMPLE"
@@ -35,29 +37,35 @@ const GENERATOR_MQTT = "GENERATOR_MQTT"
  */
 
 let swings = [{
-    type: GENERATOR_SAMPLE,
-    sample: samples[1],
+    type: GENERATOR_MQTT,
+    sample: samples[0],
     sampleOffset: 0,
+    id: 1,
+}/* */, {
+    type: GENERATOR_MQTT,
+    sample: samples[1],
+    sampleOffset: 34,
+    id: 2
+}/* */, {
+    type: GENERATOR_MQTT,
+    sample: samples[2],
+    sampleOffset: 3245,
+    id: 3,
 }, {
-    type: GENERATOR_SAMPLE,
+    type: GENERATOR_MQTT,
     sample: samples[1],
-    sampleOffset: 0,
+    sampleOffset: 123,
+    id: 4,
 }, {
-    type: GENERATOR_SAMPLE,
-    sample: samples[1],
-    sampleOffset: 0,
+    type: GENERATOR_MQTT,
+    sample: samples[2],
+    sampleOffset: 523,
+    id: 5,
 }, {
-    type: GENERATOR_SAMPLE,
-    sample: samples[1],
-    sampleOffset: 0,
-}, {
-    type: GENERATOR_SAMPLE,
-    sample: samples[1],
-    sampleOffset: 0,
-}, {
-    type: GENERATOR_SAMPLE,
-    sample: samples[1],
-    sampleOffset: 0,
-}]
+    type: GENERATOR_MQTT,
+    sample: samples[0],
+    sampleOffset: 8917,
+    id: 6,
+}/**/]
 
 let controls = document.getElementById("controls")

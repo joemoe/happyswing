@@ -59,7 +59,7 @@ function step (time) {
                 swingyness = swingSample(time, itm, indx)
                 break;
             case GENERATOR_MQTT:
-                swingyness = swingSample(time, itm, indx)
+                swingyness = swing(time, itm, indx)
                 break;
         }
         itm.swingyness = swingyness

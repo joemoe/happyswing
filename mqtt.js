@@ -4,9 +4,16 @@ client.subscribe(MQTT_TOPIC)
 let swingMap = {}
 
 swings.forEach((itm, indx) => swingMap[itm.id] = indx)
+console.log(swingMap)
 
 client.on("message", function (topic, payload) {
-    let msg = JSON.parse(payload)
-    if(msg['id'] && swingMap[msg['id']])
-        swings[swingMap[msg['id']]].val = payload['acc_z']
+//    console.log([topic, payload].join(": "))
+//    console.log([payload].join(':'))
+    let msg = JSON.parse([payload].join(':'))
+
+    if(msg['id'] && (swingMap[msg['id']] || swingMap[msg['id']] === 0)) {
+        console.log(msg['id'], (new Date()).getTime(), msg['acc_z'])
+        swings[swingMap[msg['id']]].val = msg['acc_z']
+    }
+
 })
