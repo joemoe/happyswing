@@ -2,31 +2,29 @@
 
 ## Run it
 
-```
+```bash
 python3 -m http.server 8000
 ```
 
 Open [http://localhost:8000/](http://localhost:8000/) in your browser
 
+## Use MQTT and the Node-RED generator
 
-## Use MQTT
+Run the mqtt broker and data generator with
 
-Run the docker container with
-
-```
-docker run -d --name emqx -p 1883:1883 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx
+```bash
+docker compose up
 ````
 
-Then open [http://localhost:18083/](http://localhost:18083/)
+Then open [http://localhost:18083/](http://localhost:18083/). The default username is `admin` and the password is `public`.
+
+The Node-RED editor is available at [http://localhost:1880/](http://localhost:1880/).
 
 Test it via, you need to have `mqttx` installed.
 
+```bash
+mqttx sub -t 's' -h 'localhost' -p 1883
 ```
-mqttx sub -t 's' -h '172.20.10.4' -p 1883
-```
-
-Check your ip and update it in `config.js`.
-
 
 ## Data analysis
 

@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  generator:
+    image: jodok/happyswing-generator:latest
+    pull_policy: always
+    container_name: generator
+    depends_on:
+      - emqx
+    environment:
+      - NODE_RED_CREDENTIAL_SECRET=ccbbfca7789f30ee14630b26faf46d8dTAc
+    ports:
+      - "1880:1880"
+    networks:
+      - happyswing-net
+
+  emqx:
+    image: emqx:5.0.24
+    container_name: emqx
+    environment:
+      - EMQX_NODE_NAME=emqx@emqx.happyswing.local
+      - EMQX_NODE__COOKIE=3d62b58f44ba91fbbdd0fc2bbf59619ba61bd410058c035d6f29b68f64cf21ef
+    networks:
+      - happyswing-net
+    healthcheck:
+      test: [ "CMD", "/opt/emqx/bin/emqx_ctl", "status" ]
+      interval: 5s
+      timeout: 25s
+      retries: 5
+    ports:
+      - 1883:1883
+      - 8083:8083
+      - 8084:8084
+      - 8883:8883
+      - 18083:18083
+
+networks:
+  happyswing-net:
+    name: happyswing-net
