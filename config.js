@@ -1,7 +1,7 @@
 const MAX_SWING_POWER = 20
 const MAX_SWING_DURATION = 2000
 
-const MQTT_URL = "ws://10.0.1.2:8083/mqtt"
+const MQTT_URL = "ws://localhost:8083/mqtt"
 const MQTT_TOPIC = "s"
 
 const AUDIO_ONTICK = "AUDIO_ONTICK"
@@ -10,7 +10,7 @@ const AUDIO_FIXED_MOONSHINE = "AUDIO_FIXED_MOONSHINE"
 const AUDIO_TONES = "AUDIO_TONES"
 const AUDIO_PIANO = "AUDIO_PIANO"
 
-const AUDIO_TYPE = AUDIO_PIANO  
+const AUDIO_TYPE = AUDIO_PIANO
 
 // Generator types
 const GENERATOR_SAMPLE = "GENERATOR_SAMPLE"
