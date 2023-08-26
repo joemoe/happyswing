@@ -8,13 +8,17 @@ function swingSample(time, itm, indx) {
     return swing(time, itm, indx)
 }
 
+let maxTimeWindow = 2000
+
 function swing(time, itm, indx) {
+    if(!itm.val) return
     if(!itm.lastVal) itm.lastVal = itm.val
     if(!itm.direction) itm.direction = 1
     if(!itm.dataDirection) itm.dataDirection = 1
     if(!itm.lastLowTime) itm.lastLowTime = 0
     if(!itm.cycleTime) itm.cycleTime = 0
     if(!itm.lastHighTime) itm.lastHighTime = 0
+    if(!itm.maxCue) itm.maxCue = []
 
     itm.highTick = itm.lowTick = false
                     
@@ -33,8 +37,34 @@ function swing(time, itm, indx) {
     }
     itm.lastVal = itm.val
 
+    itm.maxCue.push({
+        val: itm.val,
+        time: (new Date()).getTime()
+    })
+    let watermark = (new Date()).getTime() - maxTimeWindow
+    let newMaxCue = []
+    itm.maxCue.forEach((obj, indx) => {
+        if(obj.time >= watermark) newMaxCue.push(obj)
+    })
+    itm.maxCue = newMaxCue
+    itm.windowMax = 0
+    itm.maxCue.forEach((obj, indx) => {
+        itm.windowMax = Math.max(itm.windowMax, obj.val)
+    })
+
+    let oldLevel = itm.level
+    itm.level = 0
+    itm.levelChanged = false
+    itm.levels.forEach((level, indx) => {
+        if(itm.windowMax > level)
+            itm.level = indx
+    })
+    itm.levelChanged = oldLevel != itm.level
+
+
     itm.active = true
-    if(time - itm.lastHighTime > MAX_SWING_DURATION) itm.active = false
+//    if(time - itm.lastHighTime > MAX_SWING_DURATION) itm.active = false
+    //if(itm.level == 0) itm.active = false
 
     swings[indx] = itm
 
@@ -44,8 +74,7 @@ function swing(time, itm, indx) {
 }
 
 function step (time) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
+    //if(clearDrawSwing) clearDrawSwing()
     swings.forEach((itm, indx) => {  
         if(itm.hide) return;
 
@@ -65,8 +94,9 @@ function step (time) {
         itm.swingyness = swingyness
 
         if(!itm.active) return
-        if(drawSwing) drawSwing(itm, indx)
+        //if(drawSwing) drawSwing(itm, indx)
     })
+    drawParameters()
     audioTick()
 
     window.requestAnimationFrame(step)

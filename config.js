@@ -9,8 +9,9 @@ const AUDIO_FIXED_SAMPLED = "AUDIO_FIXED_SAMPLED"
 const AUDIO_FIXED_MOONSHINE = "AUDIO_FIXED_MOONSHINE"
 const AUDIO_TONES = "AUDIO_TONES"
 const AUDIO_PIANO = "AUDIO_PIANO"
+const AUDIO_LEVELED = "AUDIO_LEVELED"
 
-const AUDIO_TYPE = AUDIO_PIANO  
+const AUDIO_TYPE = AUDIO_LEVELED
 
 // Generator types
 const GENERATOR_SAMPLE = "GENERATOR_SAMPLE"
@@ -41,31 +42,58 @@ let swings = [{
     sample: samples[0],
     sampleOffset: 0,
     id: 1,
+    levels: [4, 5.7, 5.9],
+    //levels: [5.5, 5.7, 5.9],
+    instrument: "base",
+    param: "acc_z",
+    paramFac: 1
 }/* */, {
     type: GENERATOR_MQTT,
     sample: samples[1],
     sampleOffset: 34,
-    id: 2
-}/* */, {
+    id: 2,
+    levels: [10, 13, 14],
+    instrument: "anthem",
+    param: "acc_z",
+    paramFac: 1
+} /* */, {
     type: GENERATOR_MQTT,
     sample: samples[2],
     sampleOffset: 3245,
     id: 3,
+    levels: [22, 24, 26],
+    instrument: "percusssion",
+    param: "acc_x",
+    paramFac: 1
 }, {
     type: GENERATOR_MQTT,
     sample: samples[1],
     sampleOffset: 123,
     id: 4,
+    levels: [22, 24, 26],
+    instrument: "hiHat",
+    param: "acc_z",
+    paramFac: 1
 }, {
     type: GENERATOR_MQTT,
     sample: samples[2],
     sampleOffset: 523,
     id: 5,
+    levels: [22, 24, 26],
+    instrument: "cymbalsShaker",
+    param: "acc_z",
+    paramFac: 1
+
 }, {
     type: GENERATOR_MQTT,
     sample: samples[0],
     sampleOffset: 8917,
     id: 6,
+    levels: [12, 14, 16],
+    instrument: "snareClap",
+    param: "acc_z",
+    paramFac: 1
+
 }/**/]
 
 let controls = document.getElementById("controls")

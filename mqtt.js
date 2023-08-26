@@ -12,8 +12,9 @@ client.on("message", function (topic, payload) {
     let msg = JSON.parse([payload].join(':'))
 
     if(msg['id'] && (swingMap[msg['id']] || swingMap[msg['id']] === 0)) {
-        console.log(msg['id'], (new Date()).getTime(), msg['acc_z'])
-        swings[swingMap[msg['id']]].val = msg['acc_z']
+        //console.log(msg['id'], (new Date()).getTime(), msg)
+        swings[swingMap[msg['id']]].val = msg[swings[swingMap[msg['id']]].param] * swings[swingMap[msg['id']]].paramFac
+        //console.log(swings[swingMap[msg['id']]].val, msg['id'], swings[swingMap[msg['id']]].param, msg)
     }
 
 })

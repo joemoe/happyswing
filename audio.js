@@ -15,12 +15,13 @@ function loadFile(file, ending = ".wav") {
     request.send();
 } 
 
-function playFile(file, duration = 200) {
+function playFile(file, duration = 0) {
     var source = audio.createBufferSource()
     source.connect(audio.destination)
     source.buffer = fileBuffer[file]
     source.start(0)
-    window.setTimeout(_ => source.stop(), duration)
+    if(duration) window.setTimeout(_ => source.stop(), duration)
+    return source
 }
 
 let playing = false;
@@ -37,6 +38,9 @@ function audioTick() {
         case AUDIO_PIANO:
             audioPiano()
             break;
+        case AUDIO_LEVELED:
+            audioLeveled()
+            break;
 }
 }
 
@@ -52,6 +56,9 @@ function initAudio() {
             break;
         case AUDIO_PIANO:
             initAudioPiano()
+            break;
+        case AUDIO_LEVELED:
+            initAudioLeveled()
             break;
     }
     audioInited = true

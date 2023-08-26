@@ -25,3 +25,7 @@ function drawSwing(itm, indx) {
     context.arc(swingX, swingY, slotSize / 16, 0, Math.PI * 2)
     context.fill()
 }
+
+function clearDrawSwing() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
